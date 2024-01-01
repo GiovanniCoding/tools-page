@@ -1,6 +1,6 @@
 'use server'
 
-import { DateState } from "../ui/CountDaysForm";
+import { DateState } from "../types";
 
  
 export async function calculateTimeBetweenDates(prevState: DateState, formData: FormData): Promise<DateState> {

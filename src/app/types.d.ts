@@ -4,5 +4,4 @@ export type DateState = {
   differenceWeeks: number | null;
   differenceMonths: number | null;
   differenceYears: number | null;
-  finalDate: Date | null;
 };
