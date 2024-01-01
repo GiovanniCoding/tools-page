@@ -1,4 +1,4 @@
-import CountDaysForm from "../ui/CountDaysForm";
+import CountDaysForm from "@/app/ui/CountDaysForm";
 
 const DatePage = () => {
   return (
