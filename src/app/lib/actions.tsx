@@ -1,23 +1,22 @@
 'use server'
 
+import { DateTime } from "luxon";
 import { DateState } from "../types";
 
  
 export async function calculateTimeBetweenDates(prevState: DateState, formData: FormData): Promise<DateState> {
+  const startDate = DateTime.fromISO(formData.get('startDate') as string);
+  let endDate = DateTime.fromISO(formData.get('endDate') as string);
+  const includeEndDate = formData.get('includeEndDate') === 'on';
 
-  const startDate = new Date(formData.get('startDate') as string);
-  const endDate = new Date(formData.get('endDate') as string);
+  endDate = includeEndDate
+    ? endDate.plus({days: 1})
+    : endDate;
 
-  const milisecondsPerDay = 24 * 60 * 60 * 1000;
-  const milisecondsPerWeek = 7 * 24 * 60 * 60 * 1000;
-  const milisecondsPerMonth = 30 * 24 * 60 * 60 * 1000;
-  const milisecondsPerYear = 365 * 24 * 60 * 60 * 1000;
-
-  const differenceMilliseconds = endDate.getTime() - startDate.getTime();
-  const differenceDays = differenceMilliseconds / milisecondsPerDay;
-  const differenceWeeks = differenceMilliseconds / milisecondsPerWeek;
-  const differenceMonths = differenceMilliseconds / milisecondsPerMonth;
-  const differenceYears = differenceMilliseconds / milisecondsPerYear;
+  const differenceDays: number = endDate.diff(startDate, 'days').toObject().days || 0;
+  const differenceWeeks: number = endDate.diff(startDate, 'weeks').toObject().weeks || 0;
+  const differenceMonths: number = endDate.diff(startDate, 'months').toObject().months || 0;
+  const differenceYears: number = endDate.diff(startDate, 'years').toObject().years || 0;
 
   return {
     ...prevState,

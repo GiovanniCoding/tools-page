@@ -41,6 +41,13 @@ const CountDaysForm = () => {
             required
           />
         </div>
+        <div className="flex justify-between">
+          <span>Incluir día final en el cálculo (+1 día)</span>
+          <input
+            type="checkbox"
+            name="includeEndDate"
+          />
+        </div>
         <button
           type="submit"
           className="w-full px-4 py-3 mt-4 text-white rounded bg-[#a06cd5] hover:bg-[#9163cb]"
