@@ -2,7 +2,7 @@
 
 import { useFormState } from "react-dom";
 import { calculateTimeBetweenDates } from "../lib/actions";
-import { DateState } from "../types";
+import { CountDaysState } from "../types";
 
 const initialState = {
   showResult: false,
@@ -10,9 +10,9 @@ const initialState = {
   differenceWeeks: 0,
   differenceMonths: 0,
   differenceYears: 0,
-} as DateState;
+} as CountDaysState;
 
-const CountDaysForm = () => {
+export const CountDaysForm = () => {
   const [state, formAction] = useFormState(
     calculateTimeBetweenDates,
     initialState
@@ -62,8 +62,8 @@ const CountDaysForm = () => {
               <span className="text-lg font-thin mb-2">Number of Days</span>
               <span>{state.differenceDays}</span>
             </div>
-            <div className="my-3 py-5 bg-white flex flex-col">
-              <span className="text-lg font-thin mb-2">Number of Weeks</span>
+            <div className="my-3 py-5 bg-white flex flex-col gap-2">
+              <span className="text-lg font-thin">Number of Weeks</span>
               <span>{state.differenceWeeks?.toFixed(2)}</span>
             </div>
             <div className="my-3 py-5 bg-white flex flex-col">
@@ -80,5 +80,3 @@ const CountDaysForm = () => {
     </>
   );
 };
-
-export default CountDaysForm;

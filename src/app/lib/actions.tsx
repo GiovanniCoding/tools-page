@@ -1,10 +1,10 @@
 'use server'
 
 import { DateTime } from "luxon";
-import { DateState } from "../types";
+import { CountDaysState } from "../types";
 
  
-export async function calculateTimeBetweenDates(prevState: DateState, formData: FormData): Promise<DateState> {
+export async function calculateTimeBetweenDates(prevState: CountDaysState, formData: FormData): Promise<CountDaysState> {
   const startDate = DateTime.fromISO(formData.get('startDate') as string);
   let endDate = DateTime.fromISO(formData.get('endDate') as string);
   const includeEndDate = formData.get('includeEndDate') === 'on';

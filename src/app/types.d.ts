@@ -1,4 +1,4 @@
-export type DateState = {
+export type CountDaysState = {
   showResult: boolean;
   differenceDays: number | null;
   differenceWeeks: number | null;
