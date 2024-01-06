@@ -1,7 +1,7 @@
 'use server'
 
 import { DateTime } from "luxon";
-import { CountDaysState } from "../types";
+import { AddRemoveDaysState, CountDaysState } from "../types";
 
  
 export async function calculateTimeBetweenDates(prevState: CountDaysState, formData: FormData): Promise<CountDaysState> {
@@ -25,5 +25,25 @@ export async function calculateTimeBetweenDates(prevState: CountDaysState, formD
     differenceWeeks,
     differenceMonths,
     differenceYears,
+  }
+}
+
+export async function addDays(prevState: AddRemoveDaysState, formData: FormData): Promise<AddRemoveDaysState> {
+  const daysToAdd = parseInt(formData.get('days') as string) || 0;
+  const weeksToAdd = parseInt(formData.get('weeks') as string) || 0;
+  const monthsToAdd = parseInt(formData.get('months') as string) || 0;
+  const yearsToAdd = parseInt(formData.get('years') as string) || 0;
+
+  const startDate = DateTime.fromISO(formData.get('startDate') as string)
+    .plus({
+      days: daysToAdd,
+      weeks: weeksToAdd,
+      months: monthsToAdd,
+      years: yearsToAdd
+    }).toFormat('DDDD');
+
+  return {
+    ...prevState,
+    resultDate: startDate,
   }
 }

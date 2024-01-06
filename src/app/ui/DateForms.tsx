@@ -1,10 +1,10 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { calculateTimeBetweenDates } from "../lib/actions";
-import { CountDaysState } from "../types";
+import { addDays, calculateTimeBetweenDates } from "../lib/actions";
+import { AddRemoveDaysState, CountDaysState } from "../types";
 
-const initialState = {
+const initialStateCountDays = {
   showResult: false,
   differenceDays: 0,
   differenceWeeks: 0,
@@ -12,10 +12,14 @@ const initialState = {
   differenceYears: 0,
 } as CountDaysState;
 
+const initialStateAddRemoveDays = {
+  resultDate: null,
+} as AddRemoveDaysState;
+
 export const CountDaysForm = () => {
   const [state, formAction] = useFormState(
     calculateTimeBetweenDates,
-    initialState
+    initialStateCountDays
   );
 
   return (
@@ -73,6 +77,85 @@ export const CountDaysForm = () => {
             <div className="my-3 py-5 bg-white flex flex-col">
               <span className="text-lg font-thin mb-2">Number of Years</span>
               <span>{state.differenceYears?.toFixed(2)}</span>
+            </div>
+          </div>
+        )
+      }
+    </>
+  );
+};
+
+export const AddRemoveDaysForm = () => {
+  const [state, formAction] = useFormState(
+    addDays,
+    initialStateAddRemoveDays
+  );
+
+  return (
+    <>
+      <form action={formAction}>
+        <div className="py-5">
+          <div>Start Date</div>
+          <input
+            className="w-full px-4 py-2 border border-gray-300 rounded hover:cursor-text"
+            type="date"
+            name="startDate"
+            id="startDate"
+            required
+          />
+        </div>
+        <div>
+          <div className="flex flex-row gap-4">
+            <div>
+              <div>Days</div>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded hover:cursor-text"
+                type="number"
+                name="days"
+                id="days"
+              />
+            </div>
+            <div>
+              <div>Weeks</div>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded hover:cursor-text"
+                type="number"
+                name="weeks"
+                id="weeks"
+              />
+            </div>
+            <div>
+              <div>Months</div>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded hover:cursor-text"
+                type="number"
+                name="months"
+                id="months"
+              />
+            </div>
+            <div>
+              <div>Years</div>
+              <input
+                className="w-full px-4 py-2 border border-gray-300 rounded hover:cursor-text"
+                type="number"
+                name="years"
+                id="years"
+              />
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          className="w-full px-4 py-3 mt-4 text-white rounded bg-[#a06cd5] hover:bg-[#9163cb]"
+        >
+          Calculate
+        </button>
+      </form>
+      {
+        state.resultDate && (
+          <div>
+            <div className="my-3 py-5 bg-white flex flex-col">
+              <span className="text-xl font-thin mb-2">{state.resultDate}</span>
             </div>
           </div>
         )

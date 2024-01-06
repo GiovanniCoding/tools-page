@@ -1,6 +1,10 @@
+import { AddRemoveDaysForm } from "@/app/ui/DateForms"
+
 const AddDaysPage = () => {
   return (
-    <div>page</div>
+    <div className="mx-auto max-w-xl">
+      <AddRemoveDaysForm />
+    </div>
   )
 }
 
