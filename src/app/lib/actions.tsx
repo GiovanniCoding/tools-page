@@ -47,3 +47,23 @@ export async function addDays(prevState: AddRemoveDaysState, formData: FormData)
     resultDate: startDate,
   }
 }
+
+export async function removeDays(prevState: AddRemoveDaysState, formData: FormData): Promise<AddRemoveDaysState> {
+  const daysToRemove = parseInt(formData.get('days') as string) || 0;
+  const weeksToRemove = parseInt(formData.get('weeks') as string) || 0;
+  const monthsToRemove = parseInt(formData.get('months') as string) || 0;
+  const yearsToRemove = parseInt(formData.get('years') as string) || 0;
+
+  const startDate = DateTime.fromISO(formData.get('startDate') as string)
+    .minus({
+      days: daysToRemove,
+      weeks: weeksToRemove,
+      months: monthsToRemove,
+      years: yearsToRemove
+    }).toFormat('DDDD');
+
+  return {
+    ...prevState,
+    resultDate: startDate,
+  }
+}

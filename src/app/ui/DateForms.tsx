@@ -1,7 +1,7 @@
 "use client";
 
 import { useFormState } from "react-dom";
-import { addDays, calculateTimeBetweenDates } from "../lib/actions";
+import { addDays, calculateTimeBetweenDates, removeDays } from "../lib/actions";
 import { AddRemoveDaysState, CountDaysState } from "../types";
 
 const initialStateCountDays = {
@@ -85,9 +85,13 @@ export const CountDaysForm = () => {
   );
 };
 
-export const AddRemoveDaysForm = () => {
+type AddRemoveDaysFormProps = {
+  action: 'add' | 'remove';
+}
+
+export const AddRemoveDaysForm = ( { action }: AddRemoveDaysFormProps ) => {
   const [state, formAction] = useFormState(
-    addDays,
+    action === 'add' ? addDays : removeDays,
     initialStateAddRemoveDays
   );
 
